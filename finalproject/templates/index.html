@@ -1,7 +1,23 @@
+{% extends "base.html" %}
 {% block title %}Home{% endblock %}
 
+{% block head %}
+	{{ super() }}
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+{% endblock %}
+
 {% block page_content %}
-<body>
-	<h1>Landing Page</h1>
+<body class="container">
+	<button><a href="/signup">Sign Up Page</a></button>
+	<button><a href="/login">Log in Page</a></button>
+
+	<h1>Posts</h1>
+	<div class="card">
+		<ul class="list-group list-group-flush">
+	    	<li class="list-group-item">Cras justo odio</li>
+	    	<li class="list-group-item">Dapibus ac facilisis in</li>
+	    	<li class="list-group-item">Vestibulum at eros</li>
+  		</ul>
+	</div>
 </body>
 {% endblock %}
