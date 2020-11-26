@@ -1,24 +1,36 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 from datetime import datetime
 
 app = Flask(__name__)
 application = app
 bootstrap = Bootstrap(app)
+app.config['SECRET_KEY'] = 'hard to guess string'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///post.db'
 
+db = SQLAlchemy(app)
 
-db= SQLAlchemy(app)
+class PostForm(FlaskForm):
+    postTitle = StringField('Post Title', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class Post(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(200), nullable=False)
 	date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
+	def __repr__(self):
+		return '<Post %t>' % self.title
+
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+	posts = Post.query.order_by(Post.date_created)
+	return render_template('index.html', posts=posts)
 
 @app.route('/signup')
 def signup():
@@ -27,3 +39,19 @@ def signup():
 @app.route('/login')
 def login():
 	return render_template('login.html')
+
+@app.route('/createPost', methods=['POST', 'GET'])
+def createPost():
+	form = PostForm()
+	if request.method == "POST":
+		post_item = request.form['postTitle']
+		new_post = Post(title=post_item)
+
+		try:
+			db.session.add(new_post)
+			db.session.commit()
+			return redirect('/')
+		except:
+			return redirect('/createPost')
+	else:
+		return render_template('createPost.html', form=form)
