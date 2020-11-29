@@ -1,8 +1,11 @@
 from . import db
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
+from flask_login import UserMixin
 
-class User(db.Model):
-    email = db.Column(db.String(100), primary_key = True)
+
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique = True)
     password_hash = db.Column(db.String(100))
 
     def verify_password(self, password):
