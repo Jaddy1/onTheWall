@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 from datetime import datetime
 
@@ -16,11 +16,13 @@ db = SQLAlchemy(app)
 
 class PostForm(FlaskForm):
     postTitle = StringField('Post Title', validators=[DataRequired()])
+    postContent = TextAreaField('Post Content', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class Post(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(200), nullable=False)
+	content = db.Column(db.String(1000), nullable=False)
 	date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
 	def __repr__(self):
@@ -44,8 +46,9 @@ def login():
 def createPost():
 	form = PostForm()
 	if request.method == "POST":
-		post_item = request.form['postTitle']
-		new_post = Post(title=post_item)
+		post_title = request.form['postTitle']
+		post_content = request.form['postContent']
+		new_post = Post(title=post_title, content=post_content)
 
 		try:
 			db.session.add(new_post)

@@ -29,7 +29,9 @@
 	<ul class="list-group">
 	{% for post in posts %}
 		<li class="list-group-item">
-			{{ post.title }}
+			<h2>{{ post.title }}</h2>
+			<h4>Anonymous</h4>
+			<p>{{ post.content }}</p>
 		</li>
 	{% endfor %}
 	</ul>
