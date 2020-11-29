@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, Blueprint
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -7,7 +7,9 @@ from wtforms.validators import DataRequired
 from datetime import datetime
 from . import db
 from .models import Post
+from flask_login import login_required
 
+feed_blueprint = Blueprint('feed', __name__)
 
 class PostForm(FlaskForm):
     postTitle = StringField('Post Title', validators=[DataRequired()])
@@ -24,20 +26,22 @@ class PostForm(FlaskForm):
 # 		return '<Post %t>' % self.title
 
 
-@app.route('/posts')
-def index():
+@feed_blueprint.route('/posts')
+@login_required
+def posts():
 	posts = Post.query.order_by(Post.date_created)
-	return render_template('index.html', posts=posts)
+	return render_template('feed.html', posts=posts)
 
-@app.route('/signup')
-def signup():
-	return render_template('signup.html')
+# #@app.route('/signup')
+# def signup():
+# 	return render_template('signup.html')
 
-@app.route('/login')
-def login():
-	return render_template('login.html')
+# @app.route('/login')
+# def login():
+# 	return render_template('login.html')
 
-@app.route('/createPost', methods=['POST', 'GET'])
+@feed_blueprint.route('/createPost', methods=['POST', 'GET'])
+@login_required
 def createPost():
 	form = PostForm()
 	if request.method == "POST":

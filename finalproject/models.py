@@ -1,6 +1,7 @@
 from . import db
 from werkzeug.security import check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 
 class User(UserMixin, db.Model):
@@ -12,7 +13,8 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 class Post(db.Model):
-	postId = db.Column(db.Integer, primary_key = True)
-	title = db.Column(db.String(100))
-	content = db.Column(db.String(100)) 
-	email = db.Column(db.String(100), db.ForeignKey('user.email'))
+    postId = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(100))
+    content = db.Column(db.String(100)) 
+    email = db.Column(db.String(100), db.ForeignKey('user.email'))
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)

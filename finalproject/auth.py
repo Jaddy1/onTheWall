@@ -19,7 +19,7 @@ def login():
             print("Please check your login details and try again.")
             return redirect(url_for('auth.login'))
         login_user(user, remember=remember)
-        return redirect(url_for('main.feed'))
+        return redirect(url_for('feed.posts'))
 
 @auth_blueprint.route('/signup', methods=['GET','POST'])
 def signup():
