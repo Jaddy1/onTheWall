@@ -1,11 +1,42 @@
 {% extends "base.html" %}
+{% block title %}Home{% endblock %}
 
-{% block title %}OTW Feed{% endblock %}
+{% block head %}
+	{{ super() }}
+	<link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/index.css') }}">
+{% endblock %}
 
 {% block page_content %}
-<html>
-<body>
-</body>
-</html>
+<body class="container">
+	
+	<button><a href="/signup">Sign Up Page</a></button>
+	<button><a href="/login">Log in Page</a></button>
 
+	<h1>Posts</h1>
+	<button><a href="/createPost">Create Post</a></button>
+	<ul class="list-group">
+		<li class="list-group-item">
+			<h3>Post 1</h3>
+			<h5>Author</h5>
+			<p>Some Random Text</p>
+		</li>
+		<li class="list-group-item">Post 2</li>
+		<li class="list-group-item">Post 3</li>
+		<li class="list-group-item">Post 4</li>
+		<li class="list-group-item">Post 5</li>
+	</ul>
+	<br>
+	<ul class="list-group">
+	{% for post in posts %}
+		<li class="list-group-item">
+			<h2>{{ post.title }}</h2>
+			<h4>Anonymous</h4>
+			<p>{{ post.content }}</p>
+		</li>
+	{% endfor %}
+	</ul>
+
+
+
+</body>
 {% endblock %}
