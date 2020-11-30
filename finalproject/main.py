@@ -7,7 +7,7 @@ main_blueprint = Blueprint('main', __name__)
 
 @main_blueprint.route('/')
 def main():
-	return 'Main'
+	return render_template('main.html')
 
 # @main_blueprint.route('/feed')
 # @login_required
