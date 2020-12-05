@@ -6,8 +6,10 @@ from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 from datetime import datetime
 from . import db
+from .models import User
 from .models import Post
-from flask_login import login_required
+from .models import Comment
+from flask_login import login_required, current_user
 
 feed_blueprint = Blueprint('feed', __name__)
 
@@ -16,14 +18,9 @@ class PostForm(FlaskForm):
     postContent = TextAreaField('Post Content', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-# class Post(db.Model):
-# 	id = db.Column(db.Integer, primary_key=True)
-# 	title = db.Column(db.String(200), nullable=False)
-# 	content = db.Column(db.String(1000), nullable=False)
-# 	date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
-# 	def __repr__(self):
-# 		return '<Post %t>' % self.title
+class CommentForm(FlaskForm):
+	content = StringField('Comment', validators=[DataRequired()])
+	submit = SubmitField('Submit')
 
 
 @feed_blueprint.route('/posts')
@@ -32,13 +29,15 @@ def posts():
 	posts = Post.query.order_by(Post.date_created)
 	return render_template('feed.html', posts=posts)
 
-# #@app.route('/signup')
-# def signup():
-# 	return render_template('signup.html')
+@feed_blueprint.route('/posts/<int:postId>', methods=['GET'])
+@login_required
+def viewSinglePost(postId=None):
+	form = CommentForm()
+	postNum = request.args.get('posts', postId)
+	post = Post.query.filter_by(postId=postNum).first()
+	comments = Comment.query.filter_by(postId=postNum).order_by(Comment.date_created)
+	return render_template('singlePost.html', post=post, form=form, comments=comments)
 
-# @app.route('/login')
-# def login():
-# 	return render_template('login.html')
 
 @feed_blueprint.route('/createPost', methods=['POST', 'GET'])
 @login_required
@@ -47,13 +46,47 @@ def createPost():
 	if request.method == "POST":
 		post_title = request.form['postTitle']
 		post_content = request.form['postContent']
-		new_post = Post(title=post_title, content=post_content)
-
+		new_post = Post(title=post_title, content=post_content, userId=current_user.id)
 		try:
 			db.session.add(new_post)
 			db.session.commit()
-			return redirect('/')
+			return redirect('/posts')
 		except:
 			return redirect('/createPost')
 	else:
 		return render_template('createPost.html', form=form)
+
+	
+@feed_blueprint.route('/posts/<int:postId>', methods=['POST'])
+@login_required
+def commentPost(postId=None):	
+	postNum = request.args.get('posts', postId)	
+	post = Post.query.filter_by(postId=postNum).first()
+	form = CommentForm()
+	if form.validate_on_submit():
+		content = request.form['content']
+		new_comment = Comment(content=content,userId=current_user.id,postId=postNum)
+		try:
+			db.session.add(new_comment)
+			db.session.commit()
+			return redirect(request.referrer)
+		except:
+			return redirect('/posts')
+	else:
+		return render_template('singlePost.html', form=form, post=post)
+
+@feed_blueprint.route('/posts/<int:postId>/<action>')
+@login_required
+def likePost(postId, action):
+	postNum = request.args.get('posts', postId)	
+	post = Post.query.filter_by(postId=postNum).first()
+	print(action)
+	if action == 'like':
+			User.like(current_user,post)
+			db.session.commit()
+			return redirect(request.referrer)
+	if action == 'unlike':
+		current_user.unlike(post)
+		db.session.commit()
+		return redirect(request.referrer)
+	return redirect('/')
