@@ -9,9 +9,8 @@
 
 {% block page_content %}
 
-<body class="text-center container">
+<body class="text-center" style="background-image: url ({{ url_for('static',filename='images/shh.jpg') }})">
     <form class="form-signin" method="POST">
-     <!--  <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -26,6 +25,8 @@
       <button class="btn btn-lg btn-primary btn-block submitbtn" type="submit" style="background-color: #007bff;">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; On the Wall 2020</p>
     </form>
+
+
  </body>
 </html>
 

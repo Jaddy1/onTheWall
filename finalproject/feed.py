@@ -14,7 +14,7 @@ feed_blueprint = Blueprint('feed', __name__)
 class PostForm(FlaskForm):
     postTitle = StringField('Post Title', validators=[DataRequired()])
     postContent = TextAreaField('Post Content', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Share')
 
 # class Post(db.Model):
 # 	id = db.Column(db.Integer, primary_key=True)

@@ -3,28 +3,36 @@
 
 {% block head %}
   {{ super() }}
-  <link href= "{{ url_for('static',filename='styles/landing.css') }}" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/landing.css') }}" >
 {% endblock %}
 
 {% block page_content %}
-<body>
-  <section class="masthead">
-    <div class="container h-100">
-      <div class="row h-100 align-items-center">
-        <div class="col-12 text-center">
-          <h1 class="font-weight-light">About On The Wall</h1>
-          <p class="lead">Sign up to stop feeling lonely!</p>
-        </div>
-      </div>
-    </div>
+
+<body style="background-color: #f9f6f2; ">
+  <section class="container h-100">
+    <div class="row">
+       <img src="{{ url_for('static',    filename='images/image.png') }}" style="padding-top: 100px;" class="col-sm-6"></img>
+       <div class="col-sm-6 text-center " style="padding-top: 500px; padding-left: 100px; ">
+         <h1 class="font-weight-light" style="font-size: 50px;">Write On The Wall</h1>
+         <p>Share your inner thoughts with others anonymously.</p>
+       </div>
+
+       <!-- <div>
+         <h2>App coming soon!</h2>
+       </div> -->
+     </div>
+
+     <div class="row">
+       
+       <div class="col-sm-6 text-center " style="padding-top: 500px; ">
+         <h1 class="font-weight-light" style="font-size: 50px;">You Are Not Alone</h1>
+         <p>Get rewarded for you vulnerability with support and advice from others who care and understand</p>
+       </div>
+
+       <img src="{{ url_for('static',    filename='images/landingImage.jpg') }}" style="padding-top: 100px; padding-left: 100px; " class="col-sm-6"></img>
+     </div>
   </section>
 
-  <!-- Page Content -->
-  <section class="py-5">
-    <div class="container">
-      <h2 class="font-weight-light">Page Content</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
-    </div>
-  </section>
 </body>
 {% endblock %}
