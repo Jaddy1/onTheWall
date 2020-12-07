@@ -27,7 +27,7 @@ class CommentForm(FlaskForm):
 @login_required
 def posts():
 	posts = Post.query.order_by(Post.date_created)
-	return render_template('feed.html', posts=posts)
+	return render_template('feed.html', posts=posts, userId=current_user.id)
 
 @feed_blueprint.route('/posts/<int:postId>', methods=['GET'])
 @login_required
@@ -37,7 +37,6 @@ def viewSinglePost(postId=None):
 	post = Post.query.filter_by(postId=postNum).first()
 	comments = Comment.query.filter_by(postId=postNum).order_by(Comment.date_created)
 	return render_template('singlePost.html', post=post, form=form, comments=comments)
-
 
 @feed_blueprint.route('/createPost', methods=['POST', 'GET'])
 @login_required
@@ -56,7 +55,36 @@ def createPost():
 	else:
 		return render_template('createPost.html', form=form)
 
-	
+@feed_blueprint.route('/updatePost/<int:postId>', methods=['GET', 'POST'])
+@login_required
+def updatePost(postId):
+	update_post = Post.query.get_or_404(postId)
+
+	if request.method == "POST":
+		update_post.title = request.form['postTitle']
+		update_post.content = request.form['postContent']
+
+		try:
+			db.session.commit()
+			return redirect('/posts')
+		except:
+			return "Problem updating post"
+	else:
+		form = PostForm()
+		return render_template('updatePost.html', form=form)
+
+@feed_blueprint.route('/deletePost/<int:postId>', methods=['GET'])
+@login_required
+def deletePost(postId):
+	delete_post = Post.query.get_or_404(postId)
+
+	try:
+		db.session.delete(delete_post)
+		db.session.commit()
+		return redirect('/posts')
+	except:
+		return "Problem deleting that post"
+
 @feed_blueprint.route('/posts/<int:postId>', methods=['POST'])
 @login_required
 def commentPost(postId=None):	

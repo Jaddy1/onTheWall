@@ -21,6 +21,12 @@
 			{% else %}
 				<a href="{{ url_for('feed.likePost', postId=post.postId, action='like') }}">Like</a>
 			{% endif %}
+
+      {% if userId|string() == post.userId|string() %}
+        <button><a href="/deletePost/{{post.postId}}">Delete Confession</a></button>
+
+        <button><a href="/updatePost/{{post.postId}}">Edit Confession</a></button>
+      {% endif %}
 		</li>
 	{% endfor %}
 	</ul>
