@@ -10,6 +10,11 @@
 {% block page_content %}
 <body class="container">
 	<h1>Update Post</h1>
-	{{ wtf.quick_form(form) }}
+	<form method="post">
+		{{ wtf.form_field(form.postTitle, value=post.title) }}
+		{% set f = form.postContent.process_data(post.content) %}
+		{{ wtf.form_field(form.postContent, value=post.content) }}
+		<button type="submit">Submit</button>
+	</form>
 </body>
 {% endblock %}

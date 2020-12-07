@@ -58,6 +58,7 @@ def createPost():
 @feed_blueprint.route('/updatePost/<int:postId>', methods=['GET', 'POST'])
 @login_required
 def updatePost(postId):
+	post = Post.query.get_or_404(postId)
 	update_post = Post.query.get_or_404(postId)
 
 	if request.method == "POST":
@@ -71,7 +72,7 @@ def updatePost(postId):
 			return "Problem updating post"
 	else:
 		form = PostForm()
-		return render_template('updatePost.html', form=form)
+		return render_template('updatePost.html', post=post, form=form)
 
 @feed_blueprint.route('/deletePost/<int:postId>', methods=['GET'])
 @login_required
