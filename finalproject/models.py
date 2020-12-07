@@ -31,10 +31,11 @@ class Post(db.Model):
     postId = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(100))
     content = db.Column(db.String(100)) 
-    userId = db.Column(db.String(100), db.ForeignKey('user.id'))
+    userId = db.Column(db.Integer, db.ForeignKey('user.id'))
+    categoryId = db.Column(db.Integer, db.ForeignKey('category.id'))
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment', backref='post')
-    likes = db.relationship('Likes', backref='post')
+    likes = db.relationship('Likes', backref='post')    
 
 
 class Comment(db.Model):
@@ -50,4 +51,9 @@ class Likes(db.Model):
     postId = db.Column(db.Integer, db.ForeignKey('post.postId'))
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
-    
+class Category(db.Model): 
+   id = db.Column(db.Integer, primary_key= True)
+   title = db.Column(db.String(100), unique = True)
+   description = db.Column(db.String(160))
+   posts = db.relationship('Post', backref='category')
+
