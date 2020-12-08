@@ -11,30 +11,42 @@
 {% block page_content %}
 
 <body class="text-center">
+   <div class="row">
+    <div class="col-sm-5" >
+       <img src="{{ url_for('static',    filename='images/character15.svg') }}" style="padding-top: 120px;" ></img>
+       <!-- <h1 style="font-size: 50px;">Create an Account</h1>
+            <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>
+            <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
+                <u>Bootstrapious</u></a>
+            </p> -->
+    </div>
+
+    <div class="col-sm-6 text-center " style="padding-top: 350px; padding-left: 250px; ">
   
-    <form class="form-signin" method="POST">
-     <!--  <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+      <form class="form-signin" method="POST">
+       <!--  <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
 
-      <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
-    
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="inputPassword" class="form-control" placeholder="Password" required>
+        <h1 class="h3 mb-3 font-weight-normal" style="font-size: 50px;">Sign up</h1>
+      
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" name="inputPassword" class="form-control" placeholder="Password" required>
 
-       <!--  <label for="reEnterPassword" class="sr-only">Re-enter Password</label>
-        <input type="password" name="reEnterPassword" id="reEnterPassword" class="form-control" placeholder="Re-Enter Password" required>
-        <span id='message'></span> -->
-        <p>Already have an account? <a href="/login">Log in</a></p>
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block submitbtn" type="submit" style="background-color: #007bff;">Sign Up</button>
-        <p class="mt-5 mb-3 text-muted">&copy; On the Wall 2020</p>
+         <!--  <label for="reEnterPassword" class="sr-only">Re-enter Password</label>
+          <input type="password" name="reEnterPassword" id="reEnterPassword" class="form-control" placeholder="Re-Enter Password" required>
+          <span id='message'></span> -->
+          <p>Already have an account? <a href="/login">Log in</a></p>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block submitbtn" type="submit" style="background-color: #007bff;">Sign Up</button>
+          <p class="mt-5 mb-3 text-muted">&copy; On the Wall 2020</p>
 
-    </form>
+      </form>
+    </div>
   </div>
  </body>
 </html>

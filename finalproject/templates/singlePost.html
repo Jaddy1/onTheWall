@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Post{% endblock %}
+
+{% block head %}
+	{{ super() }}
+	<link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/comment.css') }}">
+     <script src="{{url_for('static', filename='somejavascriptfile.js')}}"></script>
+{% endblock %}
+
+{% block page_content %}
+<body class="container">
+     <div class="col-md-8 gedf-main">
+      <div class="card gedf-card">
+        {% for post in posts %}
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="mr-2">
+                                    <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                                </div>
+                                <div class="ml-2">
+                                    <div class="h5 m-0">@Anonymous</div>
+                                    <!-- <div class="h7 text-muted">what should be under here</div> -->
+                                </div>
+                            </div>
+                            <div>
+                                <div class="dropdown">
+                                    <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                        <div class="h6 dropdown-header">Configuration</div>
+                                        <a class="dropdown-item" href="#">Save</a>
+                                        <a class="dropdown-item" href="#">Hide</a>
+                                        <a class="dropdown-item" href="#">Report</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Hace 40 min</div>
+                        <a class="card-link" href="#">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                        </a>
+
+                        <p class="card-text">
+                           {{ post.content }}
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                        <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                    </div>
+                        {% endfor %}
+                </div>
+                <!-- Post /////-->
+    </div>
+<!-- 
+    <h4>Comments: </h4>
+    <ul class="list-group">
+        {% for comment in comments %} 
+            <li class="list-group-item">
+                <p>{{ comment.content }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+ -->
+
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+        <div class="d-flex flex-column col-md-8">
+            <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
+                <!-- <div class="profile-image"><img class="rounded-circle" src="https://i.imgur.com/06EM6Iy.jpg" width="70"></div> -->
+                <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"><i class="fa fa-thumbs-up fa-2x hit-voting"></i><span>127</span></div>
+                <div class="d-flex flex-column ml-3">
+                    <div class="d-flex flex-row post-title">
+                        <h5>When is the project due??</h5>
+                        
+                    </div>
+                    <div class="d-flex flex-row align-items-center align-content-center post-title"><span class="mr-2 comments">13 comments&nbsp;</span><span><i class="fa fa-clock-o" aria-hidden="true"></i> 6 hours ago</span></div>
+                </div>
+            </div>
+            {% for comment in comments %} 
+            <div class="coment-bottom bg-white p-2 px-4">
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4"><input type="text" class="form-control mr-3" placeholder="Add comment"><button class="btn btn-primary" type="button">Comment</button></div>
+                <div class="collapsable-comment">
+                    <div class="d-flex flex-row justify-content-between align-items-center action-collapse p-2" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1"><span>Comments</span><i class="fa fa-chevron-down servicedrop"></i></div>
+                    <div id="collapse-1" class="collapse">
+                        <div class="commented-section mt-2">
+                            <div class="d-flex flex-row align-items-center commented-user">
+                                <h5 class="mr-2">Corey oates</h5><span class="mb-1 ml-2 fa fa-clock-o"> 4 hours ago</span>
+                            </div>
+                            <div class="comment-text-sm"><span>{ comment.content }}</span></div>
+                            <div class="reply-section">
+                                <div class="d-flex flex-row align-items-center voting-icons"><span class="ml-2"><i class="fa fa-thumbs-up mt-3 hit-voting"></i> 10</span>
+                                    <h6 class="ml-2 mt-1">Reply</h6>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+
+{{ wtf.quick_form(form) }}
+
+{% endblock %}
