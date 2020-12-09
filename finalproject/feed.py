@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, Blueprint
+from flask import Flask, render_template, request, redirect, Blueprint, flash
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
