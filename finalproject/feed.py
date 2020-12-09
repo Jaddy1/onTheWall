@@ -10,6 +10,7 @@ from .models import User
 from .models import Post
 from .models import Comment
 from flask_login import login_required, current_user
+from sqlalchemy import desc
 
 feed_blueprint = Blueprint('feed', __name__)
 
@@ -22,12 +23,21 @@ class CommentForm(FlaskForm):
 	content = StringField('Comment', validators=[DataRequired()])
 	submit = SubmitField('Submit')
 
+def sortPosts(filter):
+	if(filter == "old"):
+		return Post.query.order_by(Post.date_created.desc())
+	else:
+		return Post.query.order_by(Post.date_created)
 
-@feed_blueprint.route('/posts')
+@feed_blueprint.route('/posts', methods=['GET', 'POST'])
 @login_required
 def posts():
-	posts = Post.query.order_by(Post.date_created)
-	return render_template('feed.html', posts=posts, userId=current_user.id)
+	posts = Post.query.order_by(Post.date_created.desc())
+	if request.method == "POST":
+		posts = sortPosts(request.form['sort'])
+		return render_template('feed.html', posts=posts, userId=current_user.id)
+	else:
+		return render_template('feed.html', posts=posts, userId=current_user.id)
 
 @feed_blueprint.route('/posts/<int:postId>', methods=['GET'])
 @login_required

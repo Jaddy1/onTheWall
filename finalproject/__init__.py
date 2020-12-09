@@ -39,5 +39,7 @@ def create_app():
     from .feed import feed_blueprint
     app.register_blueprint(feed_blueprint)
 
-
+    @app.template_filter('datetimeformat')
+    def datetimeformat(value, format='%B'):
+        return value.strftime(format)
     return app
