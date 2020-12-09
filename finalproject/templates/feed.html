@@ -34,6 +34,10 @@
       	</li>
       	<li class="list-group-item">
 	      	<div class="h6 text-muted">Categories</div>
+          <a href="/createCategory" class="card-link"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+
+          <!-- <p>THIS IS WHERE TO ADD ALL THE CATEGORIES</p> -->
+
 	      	<!-- code here to enter in amount of followers jinga -->
 	      	<div class="h5"></div>
       	</li>
@@ -69,7 +73,7 @@
                                     <!-- <div class="h7 text-muted">what should be under here</div> -->
                                 </div>
                             </div>
-                            <div>
+                          <!--   <div>
                                 <div class="dropdown">
                                     <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h"></i>
@@ -81,7 +85,7 @@
                                         <a class="dropdown-item" href="#">Report</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
@@ -89,7 +93,9 @@
                        <!--  <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Hace 40 min</div> -->
                         <a class="card-link" href="#">
                             <h5 class="card-title">{{ post.title }}</h5>
+
                         </a>
+                        <a class = "pill-button" href = "{{ url_for('feed.viewPostsInCategory', categoryId=category.id) }}" >{{ category.title }} </a>
                         <p class="card-text">
                            {{ post.content }}
                         </p>
@@ -97,7 +103,7 @@
                     <div class="card-footer">
 
                         <a href="/posts/{{post.postId}}" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                        <a href = "{{ url_for('feed.viewPostsInCategory', categoryId=category.id) }}" >{{ category.title }} </a>
+                        
                        <!--  <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a> -->
                        {% if current_user.check_like(post)%}
 				                	<a href="{{ url_for('feed.likePost', postId=post.postId, action='unlike') }}" class="card-link"><i class="fa fa-gittip"></i>Unlike</a>

@@ -9,7 +9,31 @@
 
 {% block page_content %}
 <body class="container">
-	<h1>Create New Category</h1>
-	{{ wtf.quick_form(form) }}
+	
+	
+</body>
+
+<body class="container">
+	<h1 class="text-center">Create New Category</h1>
+	<div class="col-md-7 col-md-offset-2">
+        <div class="panel">
+            <div class="panel-body">
+
+                    <form action="" method="post" class="form " role="form">
+                      {{ form.csrf_token() }}
+
+                    
+                       <div class="form-group form-group" >
+                               {{ wtf.form_field(form.title, class='form-control larger form-control-lg', placeholder='Add Title...') }}
+
+                               {{ wtf.form_field(form.description, class='form-control larger form-control-lg', placeholder='Add Description...') }}
+                          </div>
+                   
+
+                     <p><input type=submit class='btn btn-danger btn-block col-form-label-lg' style="font-size: 24px; ">
+                    </form>
+        	</div>
+        </div>
+	
 </body>
 {% endblock %}

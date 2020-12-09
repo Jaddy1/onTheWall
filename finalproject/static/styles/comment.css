@@ -1,44 +1,13 @@
 body {
-    background: #eee
+    background:  #f9f6f2;
+    font-size: 24px;
 }
 
-.bdge {
-    height: 21px;
-    background-color: orange;
-    color: #fff;
-    font-size: 11px;
-    padding: 8px;
-    border-radius: 4px;
-    line-height: 3px
+h5.card-title{
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.comments {
-    text-decoration: underline;
-    text-underline-position: under;
-    cursor: pointer
-}
-
-.dot {
-    height: 7px;
-    width: 7px;
-    margin-top: 3px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block
-}
-
-.hit-voting:hover {
-    color: blue
-}
-
-.hit-voting {
-    cursor: pointer
-}
-
-.servicedrop {
-    transition-delay: 1s
-}
-
-.action-collapse {
-    cursor: pointer
+#larger {
+    font-size: 60px;
 }
