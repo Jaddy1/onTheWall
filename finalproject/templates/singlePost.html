@@ -41,13 +41,13 @@
 
                     </div>
                     <div class="card-body">
-                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Hace 40 min</div>
+                        <!-- <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Hace 40 min</div> -->
                         <a class="card-link" href="#">
                             <h5 class="card-title">{{ post.title }}</h5>
                         </a>
 
                         <p class="card-text">
-                           {{ post.content }}
+                          <!--  {{ post.content }} -->
                         </p>
                     </div>
                     <div class="card-footer">
@@ -55,7 +55,7 @@
                         <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
                         <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
                     </div>
-                        {% endfor %}
+                     <!--    {% endfor %} -->
                 </div>
                 <!-- Post /////-->
     </div>
@@ -84,7 +84,7 @@
                     <div class="d-flex flex-row align-items-center align-content-center post-title"><span class="mr-2 comments">13 comments&nbsp;</span><span><i class="fa fa-clock-o" aria-hidden="true"></i> 6 hours ago</span></div>
                 </div>
             </div>
-            {% for comment in comments %} 
+     <!--        {% for comment in comments %}  -->
             <div class="coment-bottom bg-white p-2 px-4">
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4"><input type="text" class="form-control mr-3" placeholder="Add comment"><button class="btn btn-primary" type="button">Comment</button></div>
                 <div class="collapsable-comment">
@@ -94,7 +94,7 @@
                             <div class="d-flex flex-row align-items-center commented-user">
                                 <h5 class="mr-2">Corey oates</h5><span class="mb-1 ml-2 fa fa-clock-o"> 4 hours ago</span>
                             </div>
-                            <div class="comment-text-sm"><span>{ comment.content }}</span></div>
+                           <!--  <div class="comment-text-sm"><span>{ comment.content }}</span></div> -->
                             <div class="reply-section">
                                 <div class="d-flex flex-row align-items-center voting-icons"><span class="ml-2"><i class="fa fa-thumbs-up mt-3 hit-voting"></i> 10</span>
                                     <h6 class="ml-2 mt-1">Reply</h6>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            {% endfor %}
+     <!--        {% endfor %} -->
         </div>
     </div>
 </div>

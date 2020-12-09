@@ -53,7 +53,7 @@ def createPost():
 		try:
 			db.session.add(new_post)
 			db.session.commit()
-			return redirect('/')
+			return redirect('/posts')
 		except:
 			return redirect('/createPost')
 	else:
