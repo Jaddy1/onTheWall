@@ -69,6 +69,7 @@ def createPost():
 			db.session.commit()
 			return redirect('/posts')
 		except:
+			flash ("Something went wrong...", "alert-error")
 			return redirect('/createPost')
 	else:
 		return render_template('createPost.html', form=form)
@@ -88,6 +89,7 @@ def commentPost(postId=None):
 			db.session.commit()
 			return redirect(request.referrer)
 		except:
+			flash ("Something went wrong...", "alert-error")
 			return redirect('/posts')
 	else:
 		return render_template('singlePost.html', form=form, post=post)
@@ -122,6 +124,7 @@ def createCategory():
 			db.session.commit()
 			return redirect('/posts')
 		except:
+			flash ("Something went wrong...", "alert-error")
 			return redirect('/createCategory')
 	else:
 		return render_template('createCategory.html', form=form)
@@ -135,3 +138,4 @@ def viewPostsInCategory(categoryId=None):
 	category = Category.query.filter_by(id = categoryId).first()
 	posts = Post.query.join(Category).filter_by(id = categoryId).order_by(Post.date_created)
 	return render_template('postsInCategory.html', posts = posts, category = category)
+

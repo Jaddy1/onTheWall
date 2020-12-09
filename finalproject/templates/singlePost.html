@@ -1,10 +1,23 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Post{% endblock %}
+{% block style %}
+  {{ super () }}
+  .alert-error {
+    padding: 12px;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    border: 2px solid darkred;
+    background-color: red;
+    color: white;
+  }
+{% endblock %}
 
 {% block head %}
 	{{ super() }}
-	<link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/index.css') }}">
+    <link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/index.css') }}">
+   
 {% endblock %}
 
 {% block page_content %}
@@ -25,5 +38,8 @@
 </body>
 
 {{ wtf.quick_form(form) }}
+{% for category, message in get_flashed_messages() %}
+    <div class="alert-error">{{ message }}</div>
+{% endfor %}
 
 {% endblock %}

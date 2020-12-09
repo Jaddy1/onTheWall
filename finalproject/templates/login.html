@@ -2,9 +2,23 @@
 
 {% block title %}Login{% endblock %}
 
+{% block style %}
+  {{ super () }}
+    alert-info {
+      padding: 12px;
+      border-radius: 3px;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      border: 2px solid orange;
+      background-color: yellow;
+      color: black;
+    }
+{% endblock %}
+
 {% block head %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
+ 
 {% endblock %}
 
 {% block page_content %}
@@ -26,6 +40,9 @@
       <button class="btn btn-lg btn-primary btn-block submitbtn" type="submit" style="background-color: #007bff;">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; On the Wall 2020</p>
     </form>
+    {% for message in get_flashed_messages() %}
+    <div class="alert-info">{{ message }}</div>
+  {% endfor %}
  </body>
 </html>
 
