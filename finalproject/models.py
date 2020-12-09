@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     posts = db.relationship('Post', backref='user')
     comments = db.relationship('Comment', backref='user')
     likes = db.relationship('Likes', backref='user')
+    categories = db.relationship('Category', backref='user')
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -52,8 +53,11 @@ class Likes(db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Category(db.Model): 
-   id = db.Column(db.Integer, primary_key= True)
-   title = db.Column(db.String(100), unique = True)
-   description = db.Column(db.String(160))
-   posts = db.relationship('Post', backref='category')
+    id = db.Column(db.Integer, primary_key= True)
+    title = db.Column(db.String(100), unique = True)
+    description = db.Column(db.String(160))
+    userId = db.Column(db.Integer, db.ForeignKey('user.id'))
+    posts = db.relationship('Post', backref='category')
+
+
 

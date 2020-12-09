@@ -12,20 +12,23 @@
 	<button><a href="/createPost">Create Post</a></button>
 	<ul class="list-group">
 	{% for post in posts %} 
-		<li class="list-group-item">
-			<h2>{{ post.title }}</h2>
-			<h4>Anonymous</h4>
-			<button><a href="/posts/{{post.postId}}">View</a></button>
-			{% if current_user.check_like(post)%}
-				<a href="{{ url_for('feed.likePost', postId=post.postId, action='unlike') }}">Unlike</a>
-			{% else %}
-				<a href="{{ url_for('feed.likePost', postId=post.postId, action='like') }}">Like</a>
+		{% for category in categories %}
+			{% if post.categoryId == category.id %}
+			<li class="list-group-item">
+				<h2>{{ post.title }}</h2>
+				<a href = "{{ url_for('feed.viewPostsInCategory', categoryId=category.id) }}" >{{ category.title }} </a>
+				<h4>Anonymous</h4>
+				<button><a href="/posts/{{post.postId}}">View</a></button>
+				{% if current_user.check_like(post)%}
+					<a href="{{ url_for('feed.likePost', postId=post.postId, action='unlike') }}">Unlike</a>
+				{% else %}
+					<a href="{{ url_for('feed.likePost', postId=post.postId, action='like') }}">Like</a>
+				{% endif %}
 			{% endif %}
-		</li>
+			</li>
+		{% endfor %}	
 	{% endfor %}
 	</ul>
-
-
-
 </body>
 {% endblock %}
+

@@ -52,7 +52,6 @@ def viewSinglePost(postId=None):
 	comments = Comment.query.filter_by(postId=postNum).order_by(Comment.date_created)
 	return render_template('singlePost.html', post=post, form=form, comments=comments)
 
-
 # create a post
 @feed_blueprint.route('/createPost', methods=['POST', 'GET'])
 @login_required
@@ -63,7 +62,7 @@ def createPost():
 		post_title = request.form['postTitle']
 		post_content = request.form['postContent']
 		category_title = form.categoryTitle.data.title
-		category = Category.query.filter_by(title=category_title).first()
+		category = Category.query.filter_by(title=category_title).first()	
 		new_post = Post(title=post_title, content=post_content, userId=current_user.id, categoryId=category.id)
 		try:
 			db.session.add(new_post)
@@ -117,7 +116,7 @@ def createCategory():
 	if request.method == "POST":
 		title = request.form['title']
 		description = request.form['description']
-		new_category = Category(title=title, description=description)
+		new_category = Category(title=title, description=description, userId= current_user.id)
 		try:
 			db.session.add(new_category)
 			db.session.commit()
@@ -129,6 +128,10 @@ def createCategory():
 
 
 #view all posts in one category
-#@feed_blueprint.route('/<int:categoryId>/', methods=['POST'])
-#@login_required
-#def viewPostsInCategory(cateogryId=None):	
+@feed_blueprint.route('/categories/<int:categoryId>', methods=['GET'])
+@login_required
+def viewPostsInCategory(categoryId=None):
+	categoryId = request.args.get('categories', categoryId)
+	category = Category.query.filter_by(id = categoryId).first()
+	posts = Post.query.join(Category).filter_by(id = categoryId).order_by(Post.date_created)
+	return render_template('postsInCategory.html', posts = posts, category = category)
