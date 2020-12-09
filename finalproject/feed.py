@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, Blueprint, flash
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, SelectField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, PasswordField
 from wtforms.validators import DataRequired
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from datetime import datetime
@@ -33,6 +33,10 @@ class CategoryForm(FlaskForm):
     description = TextAreaField('Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class UserAliasForm(FlaskForm):
+	alias = StringField('Alias', validators = [DataRequired()])
+	password = PasswordField('Password',  validators = [DataRequired()])
+	submit = SubmitField('Submit')
 
 #view of all posts
 @feed_blueprint.route('/posts')
@@ -118,7 +122,7 @@ def createCategory():
 	if request.method == "POST":
 		title = request.form['title']
 		description = request.form['description']
-		new_category = Category(title=title, description=description, userId= current_user.id)
+		new_category = Category(title=title, description=description, userId= current_user.id, alias=" ")
 		try:
 			db.session.add(new_category)
 			db.session.commit()
@@ -138,4 +142,25 @@ def viewPostsInCategory(categoryId=None):
 	category = Category.query.filter_by(id = categoryId).first()
 	posts = Post.query.join(Category).filter_by(id = categoryId).order_by(Post.date_created)
 	return render_template('postsInCategory.html', posts = posts, category = category)
+
+#create an alias
+
+@feed_blueprint.route('/profile', methods=['GET', 'POST'])
+@login_required
+def alias():
+	form = UserAliasForm()
+	if request.method == "POST":
+		userId = current_user.id 
+		alias = request.form['alias']
+		password = request.form['password']
+		user = User.query.filter_by(id=userId).first()
+		if user.verify_password(password): 
+			user.alias = alias
+			db.session.commit()
+			flash("Looks like you have a new alias!", "alert-info")
+			return redirect(request.referrer)
+		else:
+			flash("Something went wrong...", "alert-error")
+	return render_template('profile.html', form=form)
+
 
