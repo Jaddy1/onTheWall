@@ -32,6 +32,7 @@ def posts():
 	posts = Post.query.order_by(Post.date_created)
 	return render_template('feed.html', posts=posts)
 
+
 # #@app.route('/signup')
 # def signup():
 # 	return render_template('signup.html')
@@ -52,7 +53,7 @@ def createPost():
 		try:
 			db.session.add(new_post)
 			db.session.commit()
-			return redirect('/')
+			return redirect('/posts')
 		except:
 			return redirect('/createPost')
 	else:

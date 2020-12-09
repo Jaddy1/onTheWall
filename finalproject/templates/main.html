@@ -1,38 +1,118 @@
-{% extends "base3.html" %}
-{% block title %}Home{% endblock %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-{% block head %}
-  {{ super() }}
-  
-  <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/landing.css') }}" >
-{% endblock %}
+    <title>On The Wall</title>
 
-{% block page_content %}
+    <link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/landing.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-<body style="background-color: #f9f6f2; ">
-  <section class="container h-100">
-    <div class="row">
-       <img src="{{ url_for('static',    filename='images/image.png') }}" style="padding-top: 100px;" class="col-sm-6"></img>
-       <div class="col-sm-6 text-center " style="padding-top: 500px; padding-left: 100px; ">
-         <h1 class="font-weight-light" style="font-size: 50px;">Write On The Wall</h1>
-         <p>Share your inner thoughts with others anonymously.</p>
-       </div>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  </head>
 
-       <!-- <div>
-         <h2>App coming soon!</h2>
-       </div> -->
-     </div>
+  <body>
 
-     <div class="row">
-       
-       <div class="col-sm-6 text-center " style="padding-top: 500px; ">
-         <h1 class="font-weight-light" style="font-size: 50px;">You Are Not Alone</h1>
-         <p>Get rewarded for you vulnerability with support and advice from others who care and understand</p>
-       </div>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark" style="background-color: #f9f6f2;">
+      <div class="col-lg-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 font-weight-normal">ON THE WALL</h1>
+        <p class="lead" style="  font-size: 24px;"><strong>On The Wall is a safe space for college students to share their deepest darkest secrets. This community of secret sharers enforces that they are not alone. YOU are NOT alone.</strong></p>
+        <a class="btn btn-outline-secondary btn-lg" href="/signup">Sign Up Today</a>
+      </div>
+      <!-- <div class="product-device box-shadow d-none d-md-block"></div>
+      <div class="product-device product-device-2 box-shadow d-none d-md-block"></div> -->
+    </div>
 
-       <img src="{{ url_for('static',    filename='images/landingImage.jpg') }}" style="padding-top: 100px; padding-left: 100px; " class="col-sm-6"></img>
-     </div>
-  </section>
+    <div class=" d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+      <div class=" mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="background-color: #f9f6f2; ">
+        <div class="my-3 py-3" style="color: black">
+            <h2 class="display-5" style="color:black;">Read Secrets</h2>
+            <p class="lead" style="  font-size: 24px; color: black;">There is no doubt you will find an experience that relates to you! Or finding people going through what you overcame so that you can advise them through it.</p>
+            
+            <img src="{{ url_for('static',    filename='images/posts.svg') }}" style="padding-top: 40px;" ></img>
+        </div>
+        
+      </div>
+      <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="background-color: #B62828">
+        <div class="my-3 p-3">
+           <h2 class="display-5">Post a Secret</h2>
+            <p class="lead" style="  font-size: 24px;">This is the place to be vulnerable and share your deepest secrets without fear of shame or judgement. Your story may resonate/help someone else.</p>
+            <!-- <hr style="background-color: white;"> -->
+            <img src="{{ url_for('static',    filename='images/addPost.svg') }}" style="padding-top: 150px;" ></img>
+        </div>
+   
+      </div>
+    </div>
 
-</body>
-{% endblock %}
+    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+      <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden" style="background-color: #B62828">
+        <div class="my-3 p-3">
+          <h2 class="display-5">Get Validated</h2>
+            <p class="lead" style="  font-size: 24px;">Open yourself to positive reactions from your Wall Family! Recieve likes on your thoughts or unpopular opinions. Or recieve heartfelt comments filled with advice to help your situation.</p>
+            <!-- <hr style="background-color: white;"> -->
+            <img src="{{ url_for('static',    filename='images/social.svg') }}" style="padding-top: 50px;" ></img>
+        </div>
+        
+      </div>
+      <div class=" mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden" style="background-color: #f9f6f2;">
+        <div class="my-3 py-3">
+           <h2 class="display-5" style="color: black">Validate Others</h2>
+            <p class="lead" style="color: black; font-size: 24px;">Reach out to others with your wisdom, advice, and critque. You also have the ability to like other people's posts on their opinions and more.</p>
+            <!-- <hr style="background-color: white;"> -->
+            <img src="{{ url_for('static',    filename='images/online.svg') }}" style="padding-top: 50px;" ></img>
+        </div>
+        
+      </div>
+    </div>
+
+    
+    </div>
+
+    <footer class="container py-5">
+      <div class="row">
+        <div class="col-12 col-md">
+          
+          <small class="d-block mb-3 text-muted">&copy; 2020</small>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Fernanda Sesto</h5>
+          <p></p>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Dominique Dorvil</h5>
+          <p></p>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Jeffron Addy</h5>
+          <p></p>
+        </div>
+     
+      </div>
+      
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../../../dist/js/bootstrap.min.js"></script>
+    <script src="../../../../assets/js/vendor/holder.min.js"></script>
+    <script>
+      Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+      });
+    </script>
+  </body>
+</html>
