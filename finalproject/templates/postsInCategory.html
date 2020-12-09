@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+	{{ super() }}
+	<link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/index.css') }}">
+{% endblock %}
+
+{% block page_content %}
+<body class="container">
+    <h1>Posts in {{ category.title }} </h1>
+    {% for post in posts %} 
+    <li class="list-group-item">
+        <h2>{{ post.title }}</h2>
+        <h4>Anonymous</h4>
+        <button><a href="/posts/{{post.postId}}">View</a></button>
+        {% if current_user.check_like(post)%}
+            <a href="{{ url_for('feed.likePost', postId=post.postId, action='unlike') }}">Unlike</a>
+        {% else %}
+            <a href="{{ url_for('feed.likePost', postId=post.postId, action='like') }}">Like</a>
+        {% endif %}
+    </li>
+    {% endfor %}	
+
+{% endblock %}

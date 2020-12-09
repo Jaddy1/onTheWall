@@ -16,7 +16,6 @@ def login():
         remember = True if request.form.get('remember') else False
         user = User.query.filter_by(email=email).first()
         if not user or not user.verify_password(password):
-            print("Please check your login details and try again.")
             return redirect(url_for('auth.login'))
         login_user(user, remember=remember)
         return redirect(url_for('feed.posts'))
@@ -30,6 +29,7 @@ def signup():
         password = request.form.get('inputPassword')
         user = User.query.filter_by(email=email).first() 
         if user:
+            print("Something went wrong. Try a different email. ")
             return redirect(url_for('auth.signup'))
         new_user = User(email=email, password_hash=generate_password_hash(password, method='sha1'))
         db.session.add(new_user)
