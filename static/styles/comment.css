@@ -1,0 +1,13 @@
+body {
+    background:  #f9f6f2;
+    font-size: 24px;
+}
+
+h5.card-title{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#larger {
+    font-size: 60px;
+}

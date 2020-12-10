@@ -1,0 +1,35 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %} On The Wall {% endblock %}
+
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+
+
+<nav class="navbar bg-transparent">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="color: #B62828; font-size: 30px;   font-family: 'Finger Paint', cursive;" href="/">On The Wall</a>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}
+
+
+
+

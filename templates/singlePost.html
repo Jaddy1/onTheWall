@@ -1,0 +1,93 @@
+{% extends "base2.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Post{% endblock %}
+{% block style %}
+  {{ super () }}
+  .alert-error {
+    padding: 12px;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    border: 2px solid darkred;
+    background-color: red;
+    color: white;
+  }
+{% endblock %}
+
+{% block head %}
+	{{ super() }}
+	<link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/comment.css') }}">
+  <script src="{{url_for('static', filename='somejavascriptfile.js')}}"></script>
+{% endblock %}
+
+{% block page_content %}
+<body class="container">
+<!-- 
+    <h4>Comments: </h4>
+    <ul class="list-group">
+        {% for comment in comments %} 
+            <li class="list-group-item">
+                <p>{{ comment.content }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+ -->
+
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+        <div class="d-flex flex-column col-md-8">
+            <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
+                <!-- <div class="profile-image"><img class="rounded-circle" src="https://i.imgur.com/06EM6Iy.jpg" width="70"></div> -->
+                <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"><i style="font-size: 20px;"class="fa fa-thumbs-up fa-2x hit-voting"></i><span>{{ post.likes|length }}</span></div>
+                <div class="d-flex flex-column ml-3">
+                    <div class="d-flex flex-row post-title">
+                        <a href="#">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                        </a>
+                        
+                        
+                    </div>
+                    <p class="card-text">
+                           {{ post.content }}
+                        </p>
+                   <!--  <div class="d-flex flex-row align-items-center align-content-center post-title"><span class="mr-2 comments">13 comments&nbsp;</span><span><i class="fa fa-clock-o" aria-hidden="true"></i> 6 hours ago</span></div> -->
+                </div>
+            </div>
+          
+            <div class="coment-bottom bg-white p-2 px-4">
+                       
+                    <form action="" method="post" class="form " role="form">
+                      {{ form.csrf_token() }}
+
+                    
+                       <div class="form-group form-group" style="font-size: 24px;">
+                               {{ wtf.form_field(form.content, style='font-size=24px;', class='form-control larger form-control-lg', placeholder='Add Comment...') }}
+                          </div>
+                   
+
+                     <p><input type=submit class='btn btn-danger btn-block col-form-label-lg' style="font-size: 24px; ">
+                    </form>
+
+            <div class="">
+                    <div> Comments</div>
+                     {% for comment in comments %} 
+                        <div class="commented-section mt-2">
+                              
+                            <div class="d-flex flex-row align-items-center commented-user">
+                                <i class="fa fa-clock-o"></i> {{ post.date_created|datetimeformat('%B %d, %Y') }}</div>
+                            </div>
+                            <div class="comment-text-sm"><span>{{ comment.content }}</span></div>
+                             <hr>
+                            </div>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% for category, message in get_flashed_messages() %}
+    <div class="alert-error">{{ message }}</div>
+{% endfor %}
+</body>
+{% endblock %}

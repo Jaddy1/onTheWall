@@ -1,0 +1,77 @@
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+body {
+  padding-top: 40px;
+  background-color: #f9f6f2;
+}
+
+h5.card-title {
+    font-size: 24px;
+}
+
+div.h7 {
+    font-size: 20px;
+}
+
+div.h6.text-muted {
+    font-size: 24px;
+}
+
+div.h5, h5, a , p, label{
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+}
+
+        .h7 {
+            font-size: 0.8rem;
+        }
+
+        .gedf-wrapper {
+            margin-top: 0.97rem;
+        }
+
+        @media (min-width: 992px) {
+            .gedf-main {
+                padding-left: 4rem;
+                padding-right: 4rem;
+            }
+            .gedf-card {
+                margin-bottom: 2.77rem;
+            }
+        }
+
+        /**Reset Bootstrap*/
+        .dropdown-toggle::after {
+            content: none;
+            display: none;
+        }
+
+.pill-button {
+border: none;
+color: WHITE;
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+margin: 1px 1px;
+cursor: pointer;
+font-size: 16px;
+border-radius: 32px;
+background-color: #DC3545;
+padding-right: 10px;
+}
+.pill-button:hover {
+
+}
+
+label.control-label {
+    font-size: 24px;
+}
+
+design{
+    margin-bottom: 20px;
+
+}
+        

@@ -1,0 +1,128 @@
+{% extends "base2.html" %}
+{% block title %}Home{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/index.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
+{% endblock %}
+
+{% block page_content %}
+
+<body  class="container pt-3" style="background-color: #f9f6f2;">
+    
+    <!-- <button><a href="/signup">Sign Up Page</a></button>
+    <button><a href="/login">Log in Page</a></button> -->
+
+    <!-- <h1>Posts</h1> -->
+    <!-- <button><a href="/createPost">Create Post</a></button> -->
+
+<div>
+  <div class="row">
+
+    <!-- PROFILE INFORMATION -->
+    <div class="col-xs-4">
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="h5">@{{ alias }}</div>
+
+            <a href="/" class="card-link">Edit Alias</a>
+
+        </li>
+        <li class="list-group-item">
+            <div class="h6 text-muted">Categories</div>
+            {% for category in categories %}
+                <div class="h5"><a href="{{ url_for('feed.viewPostsInCategory', categoryId=category.id) }}">{{ category.title }}</a></div>
+            {% endfor %}
+          <a href="/createCategory" class="card-link"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+
+            <!-- code here to enter in amount of followers jinga -->
+            <div class="h5"></div>
+        </li>
+
+        <li class="list-group-item">
+            <div class="h6 text-muted">Sort Feed</div>
+                <form method="POST">
+                    <input type="radio" name="sort" value="old">
+                    <label for="old">Old</label><br>
+                    <input type="radio" name="sort" value="new">
+                    <label for="new">New</label><br>
+                    <button type="submit">Submit</button>
+                </form>
+            <div class="h5"></div>
+        </li> 
+
+        <li class="list-group-item">
+            <button type="button" class="btn btn-danger btn-lg btn-block"><a href="/createPost" role="button" style="color: white;">Create Post</a></button>
+        </li>       
+      </ul>
+    </div>
+
+    <!-- POSTS -->
+    
+    <div class="col-md-8 gedf-main ">
+        
+      <div class="card gedf-card">
+        {% for post in posts %} 
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                               {% for user in users %}
+                                   {% if user.id == post.userId %}
+                                        {% if user.alias == None %}
+                                            <div class="h5 m-0">@Anonymous</div>
+                                        {% else %}
+                                            <div class="h5 m-0">@{{ user.alias }}</div>
+                                        {% endif %}
+                                    {% endif %}
+                               {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                         <a class="card-link" href="#">
+                            <h5 class="card-title">{{ post.title }}</h5>
+
+                        </a>
+                    </div>
+                    <div class="card-footer">
+
+                       
+                        
+                       <!--  <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a> -->
+                       <button><a href="/posts/{{post.postId}}">View</a></button>
+                            {% if current_user.check_like(post)%}
+                                <a href="{{ url_for('feed.likePost', postId=post.postId, action='unlike') }}">Unlike</a>
+                            {% else %}
+                                <a href="{{ url_for('feed.likePost', postId=post.postId, action='like') }}">Like</a>
+                            {% endif %}
+
+
+                    </div>
+                    {% endfor %}
+
+                        
+                </div>
+
+                
+
+                <!-- Post /////-->
+
+  
+
+    </div>
+
+ </div>
+
+</div>
+  
+
+
+</body>
+{% endblock %}
+
+
+
