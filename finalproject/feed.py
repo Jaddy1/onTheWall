@@ -39,29 +39,23 @@ class UserAliasForm(FlaskForm):
 	password = PasswordField('Password',  validators = [DataRequired()])
 	submit = SubmitField('Submit')
 
-#view of all posts
-@feed_blueprint.route('/posts')
-@login_required
-def posts():
-	posts = Post.query.order_by(Post.date_created)
-	categories = Category.query.order_by(Category.title)
-	return render_template('feed.html', posts=posts, categories=categories)
-
 def sortPosts(filter):
 	if(filter == "old"):
 		return Post.query.order_by(Post.date_created.desc())
 	else:
 		return Post.query.order_by(Post.date_created)
 
+#view of all posts
 @feed_blueprint.route('/posts', methods=['GET', 'POST'])
 @login_required
 def posts():
 	posts = Post.query.order_by(Post.date_created.desc())
+	categories = Category.query.order_by(Category.title)
 	if request.method == "POST":
 		posts = sortPosts(request.form['sort'])
-		return render_template('feed.html', posts=posts, userId=current_user.id)
+		return render_template('feed.html', posts=posts, userId=current_user.id, categories=categories)
 	else:
-		return render_template('feed.html', posts=posts, userId=current_user.id)
+		return render_template('feed.html', posts=posts, userId=current_user.id, categories=categories)
 
 # view of a single post
 @feed_blueprint.route('/posts/<int:postId>', methods=['GET'])
@@ -169,7 +163,7 @@ def createCategory():
 	if request.method == "POST":
 		title = request.form['title']
 		description = request.form['description']
-		new_category = Category(title=title, description=description, userId= current_user.id, alias=" ")
+		new_category = Category(title=title, description=description, userId= current_user.id)
 		try:
 			db.session.add(new_category)
 			db.session.commit()

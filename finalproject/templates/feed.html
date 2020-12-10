@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block page_content %}
-<<<<<<< HEAD
-
 <body  class="container pt-3" style="background-color: #f9f6f2;">
 	
 	<!-- <button><a href="/signup">Sign Up Page</a></button>
@@ -117,7 +115,7 @@
                         
                        <!--  <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a> -->
                        {% if current_user.check_like(post)%}
-				                	<a href="{{ url_for('feed.likePost', postId=post.postId, action='unlike') }}" class="card-link"><i class="fa fa-gittip"></i>Unlike</a>
+				                	<a href="{{ url_for('feed.likePost', postId=post.postId, action='unlike') }}" class="card-link"><i class="fa fa-gittip"></i><p>{{ post.likes|length }}</p>Unlike</a>
 			                	{% else %}
 				                	<a href="{{ url_for('feed.likePost', postId=post.postId, action='like') }}" class="card-link"><i class="fa fa-gittip"></i><p>{{ post.likes|length }}</p>Like</a>
 			                	{% endif %}
