@@ -40,10 +40,27 @@ class UserAliasForm(FlaskForm):
 	submit = SubmitField('Submit')
 
 def sortPosts(filter):
-	if(filter == "old"):
+	if(filter == "new"):
 		return Post.query.order_by(Post.date_created.desc())
 	else:
 		return Post.query.order_by(Post.date_created)
+
+def sortCategoryPosts(filter, Category, categoryId):
+	if(filter == "new"):
+		return Post.query.join(Category).filter_by(id = categoryId).order_by(Post.date_created.desc())
+	else:
+		return Post.query.join(Category).filter_by(id = categoryId).order_by(Post.date_created)
+
+def getAlias():
+	if current_user.alias == None:
+		return 'Anonymous'
+	return current_user.alias
+
+def getAliasOfAuthor(post):
+    user = User.query.filter_by(post.userId).first()
+    if user.alias == None:
+        return "Anonymous"
+    return user.alias
 
 #view of all posts
 @feed_blueprint.route('/posts', methods=['GET', 'POST'])
@@ -51,11 +68,13 @@ def sortPosts(filter):
 def posts():
 	posts = Post.query.order_by(Post.date_created.desc())
 	categories = Category.query.order_by(Category.title)
+	users = User.query.all()
+	alias = getAlias()
 	if request.method == "POST":
 		posts = sortPosts(request.form['sort'])
-		return render_template('feed.html', posts=posts, userId=current_user.id, categories=categories)
+		return render_template('feed.html', posts=posts, userId=current_user.id, categories=categories, alias=alias, users=users)
 	else:
-		return render_template('feed.html', posts=posts, userId=current_user.id, categories=categories)
+		return render_template('feed.html', posts=posts, userId=current_user.id, categories=categories, alias=alias, users=users)
 
 # view of a single post
 @feed_blueprint.route('/posts/<int:postId>', methods=['GET'])
@@ -176,13 +195,20 @@ def createCategory():
 
 
 #view all posts in one category
-@feed_blueprint.route('/categories/<int:categoryId>', methods=['GET'])
+@feed_blueprint.route('/categories/<int:categoryId>', methods=['GET', 'POST'])
 @login_required
 def viewPostsInCategory(categoryId=None):
 	categoryId = request.args.get('categories', categoryId)
 	category = Category.query.filter_by(id = categoryId).first()
+	categories = Category.query.order_by(Category.title)
+	users = User.query.all()
 	posts = Post.query.join(Category).filter_by(id = categoryId).order_by(Post.date_created)
-	return render_template('postsInCategory.html', posts = posts, category = category)
+	alias = getAlias()
+	if request.method == "POST":
+		posts = sortCategoryPosts(request.form['sort'], Category, categoryId)
+		return render_template('postsInCategory.html', posts = posts, category = category, categories=categories, users=users, alias=alias)
+	else:
+		return render_template('postsInCategory.html', posts = posts, category = category, categories=categories, users=users, alias=alias)
 
 #create an alias
 
@@ -190,6 +216,7 @@ def viewPostsInCategory(categoryId=None):
 @login_required
 def alias():
 	form = UserAliasForm()
+	alias = getAlias()
 	if request.method == "POST":
 		userId = current_user.id 
 		alias = request.form['alias']
@@ -202,4 +229,4 @@ def alias():
 			return redirect(request.referrer)
 		else:
 			flash("Something went wrong...", "alert-error")
-	return render_template('profile.html', form=form)
+	return render_template('profile.html', form=form, alias=alias)

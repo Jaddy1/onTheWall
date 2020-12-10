@@ -1,19 +1,77 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Profile{% endblock %}
 
 {% block head %}
-	{{ super() }}
+    {{ super() }}
     <link rel="stylesheet" type="text/css"  href= "{{ url_for('static',filename='styles/index.css') }}">
-   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
 {% endblock %}
 
 {% block page_content %}
-<body class="container">
-	<h1>Profile</h1>
-	{{ wtf.quick_form(form) }}
-	{% for message in get_flashed_messages() %}
-	<div class="alert-error">{{ message }}</div>
-  {% endfor %}
+
+<body  class="container pt-3" style="background-color: #f9f6f2;">
+    
+    <!-- <button><a href="/signup">Sign Up Page</a></button>
+    <button><a href="/login">Log in Page</a></button> -->
+
+    <!-- <h1>Posts</h1> -->
+    <!-- <button><a href="/createPost">Create Post</a></button> -->
+
+<div>
+  <div class="row">
+
+    <!-- PROFILE INFORMATION -->
+      <ul class="list-group list-group-flush col-xs-4">
+        <li class="list-group-item">
+            <div class="h5">@{{ alias }}</div>
+
+        </li>
+
+        <li class="list-group-item">
+            <button type="button" class="btn btn-danger btn-lg btn-block"><a href="/createPost" role="button" style="color: white;">Create Post</a></button>
+        </li>       
+      </ul>
+    
+    <!-- POSTS -->
+    <div class="col-md-8">
+    	<h1 style="text-align: center;">Profile</h1>
+    			<form method="POST">
+                		{{ form.csrf_token() }}
+                <div class="panel panel-info" style="margin: 1em;">
+
+	                    <div class="panel-heading">
+	                        <h3 class="panel-title">Create Username</h3>
+	                    </div>
+	                    <div class="panel-body">
+	                        {{ wtf.form_field(form.alias, style='font-size=24px;', class='form-control larger form-control-lg', placeholder='Create Alias...') }}
+
+
+	                    </div>
+	                </div>
+	                <div class="panel panel-info" style="margin: 1em;">
+	                    <div class="panel-heading">
+	                        <h3 class="panel-title">Enter Password For Username Change</h3>
+	                    </div>
+	                    <div class="panel-body">
+	                        {{ wtf.form_field(form.password, style='font-size=24px;', class='form-control larger form-control-lg', placeholder='Create Alias...') }}
+	                    </div>
+	                </div>
+	                <p style="text-align: center;"><input type="submit" class=‘btn btn-danger btn-block col-form-label-lg’ style="font-size: 24px;">
+                </form>
+
+                {% for message in get_flashed_messages() %}
+                    <div class="alert-error">{{ message }}</div>
+                  {% endfor %}
+            </div>
+                <!-- Post /////-->
+
+  
+
+    </div>
+
+ </div>
+ 
 </body>
 {% endblock %}

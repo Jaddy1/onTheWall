@@ -20,16 +20,17 @@
             </a>
         </div>
          <ul class="nav navbar-nav">
-          <li><a href="#"></a></li>
-          <li><a href="#" style="color: black"></a></li>
-          <li><a href="#" style="color: black"></a></li>
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
             {% if current_user.is_authenticated %}
-             <li style="font-size: 30px; color: #e00000;">
-                <a href="{{ url_for('auth.logout') }}" style="font-size: 30px; color: #e00000;"> 
+            <div class="row">
+              <li style="font-size: 30px; color: #e00000;">
+              <a href="/posts" class="col-md-4" style="color: #e00000; font-size: 30px;">Posts</a>
+                <a href="{{ url_for('auth.logout') }}" class="col-md-8" style="font-size: 30px; color: #e00000;"> 
                     <span style="font-size: 30px; color: #e00000;"class="glyphicon glyphicon-log-out"></span>
                 Log Out</a>
+            </div>
             </li>
           {% endif %}
         </ul>
