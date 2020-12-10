@@ -12,6 +12,7 @@ from .models import Post
 from .models import Comment
 from .models import Category
 from flask_login import login_required, current_user
+from sqlalchemy import desc
 
 feed_blueprint = Blueprint('feed', __name__)
 
@@ -46,6 +47,22 @@ def posts():
 	categories = Category.query.order_by(Category.title)
 	return render_template('feed.html', posts=posts, categories=categories)
 
+def sortPosts(filter):
+	if(filter == "old"):
+		return Post.query.order_by(Post.date_created.desc())
+	else:
+		return Post.query.order_by(Post.date_created)
+
+@feed_blueprint.route('/posts', methods=['GET', 'POST'])
+@login_required
+def posts():
+	posts = Post.query.order_by(Post.date_created.desc())
+	if request.method == "POST":
+		posts = sortPosts(request.form['sort'])
+		return render_template('feed.html', posts=posts, userId=current_user.id)
+	else:
+		return render_template('feed.html', posts=posts, userId=current_user.id)
+
 # view of a single post
 @feed_blueprint.route('/posts/<int:postId>', methods=['GET'])
 @login_required
@@ -79,6 +96,37 @@ def createPost():
 		return render_template('createPost.html', form=form)
 
 #comment a post	
+@feed_blueprint.route('/updatePost/<int:postId>', methods=['GET', 'POST'])
+@login_required
+def updatePost(postId):
+	post = Post.query.get_or_404(postId)
+	update_post = Post.query.get_or_404(postId)
+
+	if request.method == "POST":
+		update_post.title = request.form['postTitle']
+		update_post.content = request.form['postContent']
+
+		try:
+			db.session.commit()
+			return redirect('/posts')
+		except:
+			return "Problem updating post"
+	else:
+		form = PostForm()
+		return render_template('updatePost.html', post=post, form=form)
+
+@feed_blueprint.route('/deletePost/<int:postId>', methods=['GET'])
+@login_required
+def deletePost(postId):
+	delete_post = Post.query.get_or_404(postId)
+
+	try:
+		db.session.delete(delete_post)
+		db.session.commit()
+		return redirect('/posts')
+	except:
+		return "Problem deleting that post"
+
 @feed_blueprint.route('/posts/<int:postId>', methods=['POST'])
 @login_required
 def commentPost(postId=None):	
@@ -112,7 +160,6 @@ def likePost(postId, action):
 		current_user.unlike(post)
 		db.session.commit()
 		return redirect(request.referrer)
-	return redirect('/')
 
 #create new category
 @feed_blueprint.route('/createCategory', methods = ['POST', 'GET'])
@@ -162,5 +209,3 @@ def alias():
 		else:
 			flash("Something went wrong...", "alert-error")
 	return render_template('profile.html', form=form)
-
-

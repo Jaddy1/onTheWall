@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block page_content %}
+<<<<<<< HEAD
 
 <body  class="container pt-3" style="background-color: #f9f6f2;">
 	
@@ -47,7 +48,13 @@
 
       	<li class="list-group-item">
 	      	<div class="h6 text-muted">Sort Feed</div>
-	      	
+	      		<form method="POST">
+				    <input type="radio" name="sort" value="old">
+				    <label for="old">Old</label><br>
+				    <input type="radio" name="sort" value="new">
+				    <label for="new">New</label><br>
+				    <button type="submit">Submit</button>
+				</form>
 	      	<div class="h5"></div>
       	</li>
 
@@ -99,6 +106,7 @@
 
                         </a>
                         <a class = "pill-button" href = "{{ url_for('feed.viewPostsInCategory', categoryId=category.id) }}" >{{ category.title }} </a>
+                        <p>{{ post.date_created|datetimeformat('%B %d, %Y') }}</p>
                         <p class="card-text">
                            {{ post.content }}
                         </p>
@@ -111,7 +119,7 @@
                        {% if current_user.check_like(post)%}
 				                	<a href="{{ url_for('feed.likePost', postId=post.postId, action='unlike') }}" class="card-link"><i class="fa fa-gittip"></i>Unlike</a>
 			                	{% else %}
-				                	<a href="{{ url_for('feed.likePost', postId=post.postId, action='like') }}" class="card-link"><i class="fa fa-gittip"></i>Like</a>
+				                	<a href="{{ url_for('feed.likePost', postId=post.postId, action='like') }}" class="card-link"><i class="fa fa-gittip"></i><p>{{ post.likes|length }}</p>Like</a>
 			                	{% endif %}
 
                     </div>
@@ -120,7 +128,6 @@
                     	{% endfor %}
                 </div>
                 <!-- Post /////-->
-
   
 
     </div>
@@ -140,30 +147,6 @@
     </div>
   </div> -->
 </div>
-	<!-- <ul class="list-group">
-		<li class="list-group-item">
-			<h3>Post 1</h3>
-			<h5>Author</h5>
-			<p>Some Random Text</p>
-		</li>
-		<li class="list-group-item">Post 2</li>
-		<li class="list-group-item">Post 3</li>
-		<li class="list-group-item">Post 4</li>
-		<li class="list-group-item">Post 5</li>
-	</ul>
-	<br>
-	<ul class="list-group">
-	{% for post in posts %}
-		<li class="list-group-item">
-			<h2>{{ post.title }}</h2>
-			<h4>Anonymous</h4>
-			<p>{{ post.content }}</p>
-		</li>
-	{% endfor %}
-<<<<<<< HEAD
-	</ul>
- -->
-  </ul>
 </body>
 
 {% endblock %}

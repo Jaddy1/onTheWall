@@ -39,7 +39,6 @@ class Post(db.Model):
     comments = db.relationship('Comment', backref='post')
     likes = db.relationship('Likes', backref='post')    
 
-
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key= True)
     content = db.Column(db.String(160))
