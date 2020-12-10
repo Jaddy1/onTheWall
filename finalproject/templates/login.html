@@ -2,17 +2,25 @@
 
 {% block title %}Login{% endblock %}
 
+{% block style %}
+  {{ super () }}
+    alert-info {
+      padding: 12px;
+      border-radius: 3px;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      border: 2px solid orange;
+      background-color: yellow;
+      color: black;
+    }
+{% endblock %}
+
 {% block head %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}">
-  
-
 {% endblock %}
 
-{% block page_content %}
-
-
-
+{% block page_content %}=
 <body class="text-center" >
    <div class="row">
     <div class="col-sm-6" >
@@ -45,8 +53,9 @@
        </div>
      </div>
 
-
-
+    {% for message in get_flashed_messages() %}
+    <div class="alert-info">{{ message }}</div>
+  {% endfor %}
  </body>
 </html>
 

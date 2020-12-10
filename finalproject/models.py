@@ -8,6 +8,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique = True)
     password_hash = db.Column(db.String(100))
+    alias = db.Column(db.String(100), unique = True)
     posts = db.relationship('Post', backref='user')
     comments = db.relationship('Comment', backref='user')
     likes = db.relationship('Likes', backref='user')

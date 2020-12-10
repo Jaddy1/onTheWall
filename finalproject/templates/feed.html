@@ -37,6 +37,9 @@
           <a href="/createCategory" class="card-link"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 
           <!-- <p>THIS IS WHERE TO ADD ALL THE CATEGORIES</p> -->
+        	{% for category in categories %}
+    			<div class="h5"><a href="{{ url_for('feed.viewPostsInCategory', categoryId=category.id) }}">{{ category.title }}</a></div>
+  			{% endfor %}
 
 	      	<!-- code here to enter in amount of followers jinga -->
 	      	<div class="h5"></div>
@@ -157,10 +160,10 @@
 			<p>{{ post.content }}</p>
 		</li>
 	{% endfor %}
+<<<<<<< HEAD
 	</ul>
  -->
-
-
+  </ul>
 </body>
-{% endblock %}
 
+{% endblock %}
