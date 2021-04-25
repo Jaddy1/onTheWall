@@ -3,10 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 
+
+
 import os
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
-database_file = "sqlite:///{}".format(os.path.join(project_dir, "ontheWall.db"))
+database_file = "mysql://Ddorvil:fmXSqSRW@localhost/mysql"
 db = SQLAlchemy()
 
 def create_app():
