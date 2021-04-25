@@ -8,7 +8,7 @@ from flask_login import LoginManager
 import os
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
-database_file = "mysql://Ddorvil:fmXSqSRW@localhost/Ddorvil_1"
+database_file = "mysql+pymysql://Ddorvil:fmXSqSRW@localhost/Ddorvil_1"
 db = SQLAlchemy()
 
 def create_app():
